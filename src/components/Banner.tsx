@@ -10,6 +10,7 @@ interface Props {
 }
 
 const Banner = ({ netflixOriginals }: Props) => {
+  // Its original state is null --> No value to display
   const [movie, setMovie] = useState<Movie | null>(null);
 
   useEffect(() => {
@@ -23,8 +24,8 @@ const Banner = ({ netflixOriginals }: Props) => {
   console.log(movie);
 
   return (
-    <div className="flex flex-col space-y-2 py-16 md:space-y-4 lg:h-[65vh lg:justify-end lg:pb-12">
-      <div className="absolute top-0 left-0 h-[55vh] w-screen -z-10">
+    <div className="flex flex-col space-y-2 py-16 md:space-y-4 lg:h-[65vh] lg:justify-end lg:pb-12">
+      <div className="absolute top-0 left-0 h-[95vh] w-screen -z-10">
         <Image
           src={`${baseUrl}${movie?.backdrop_path || movie?.poster_path}`}
           className="relative"
