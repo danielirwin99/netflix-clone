@@ -4,12 +4,18 @@
 
 @layer base {
   body {
-    @apply bg-[#141414];
+    @apply bg-[#141414] text-white;
+  }
+  header {
+    @apply fixed top-0 z-50 flex w-full items-center justify-between p-4 transition-all lg:px-6 lg:py-6;
   }
 }
 
 @layer components {
   .headerLink {
     @apply cursor-pointer text-sm font-light text-[#e5e5e5] transition duration-[.400ms] hover:text-[#b3b3b3];
+  }
+  .bannerButton {
+    @apply flex items-center gap-x-2 rounded px-5 py-5 text-sm font-semibold transition hover:opacity-75 md:py-2.5 md:px-8 md:text-xl;
   }
 }
