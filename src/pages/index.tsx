@@ -4,6 +4,7 @@ import Header from "@/components/Header";
 import Banner from "@/components/Banner";
 import requests from "@/utils/request";
 import { Movie } from "../../typings";
+import Row from "@/components/Row";
 
 interface Props {
   netflixOriginals: Movie[];
@@ -14,7 +15,7 @@ interface Props {
   horrorMovies: Movie[];
   romanceMovies: Movie[];
   documentaries: Movie[];
-  products: Product[];
+  // products: Product[];
 }
 
 export const getServerSideProps = async () => {
@@ -71,15 +72,16 @@ export default function Home({
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header />
-      <main>
+      <main className="relative pl-4 pb-24 lg:space-y-24 lg:pl-16">
         <Banner netflixOriginals={netflixOriginals} />
         <section>
-          {/* ROW */}
-          {/* ROW */}
-          {/* ROW */}
-          {/* ROW */}
-          {/* ROW */}
-          {/* ROW */}
+          <Row title="Trending Now" movies={trendingNow} />
+          <Row title="Top Rated" movies={topRated} />
+          <Row title="Action Thrillers" movies={actionMovies} />
+          <Row title="Comedies" movies={comedyMovies} />
+          <Row title="Documentaries" movies={documentaries} />
+          <Row title="Romance" movies={romanceMovies} />
+          <Row title="Horror" movies={horrorMovies} />
         </section>
       </main>
       {/* Modal */}
