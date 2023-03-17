@@ -1,3 +1,5 @@
+const { hostname } = require("os");
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
@@ -5,6 +7,13 @@ const nextConfig = {
 
 module.exports = {
   images: {
-    domains: ["image.tmdb.org"],
+    unoptimized: true,
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "assets.nflxext.com",
+      },
+    ],
+    domains: ["image.tmdb.org",],
   },
 };
