@@ -5,6 +5,9 @@ import Banner from "@/components/Banner";
 import requests from "@/utils/request";
 import { Movie } from "../../typings";
 import Row from "@/components/Row";
+import useAuth from "@/hooks/useAuth";
+import { useRecoilValue } from "recoil";
+import { modalState } from "@/atoms/modalAtom";
 
 // Allows us to use these in other components and pages
 interface Props {
@@ -67,6 +70,11 @@ export default function Home({
   topRated,
   trendingNow,
 }: Props) {
+  const { loading, logout } = useAuth();
+  // useRecoil is very similar to useState
+  const showModal = useRecoilValue(modalState);
+
+  if (loading) return null;
   return (
     <div className="relative h-screen bg-gradient-to-b lg:h-[140vh]">
       <Head>
@@ -89,6 +97,7 @@ export default function Home({
           <Row title="Horror" movies={horrorMovies} />
         </section>
       </main>
+      {}
       {/* Modal */}
     </div>
   );

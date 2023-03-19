@@ -133,6 +133,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   );
 };
 
+// Return this so you can use it in your login page
 export default function useAuth() {
-  useContext(AuthContext);
+ return useContext(AuthContext);
 }

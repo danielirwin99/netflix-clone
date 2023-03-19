@@ -1,3 +1,4 @@
+import useAuth from "@/hooks/useAuth";
 import Head from "next/head";
 import Image from "next/image";
 import { useState } from "react";
@@ -12,6 +13,7 @@ interface Inputs {
 
 const Login = () => {
   const [login, setLogin] = useState(false);
+  const { signIn, signUp } = useAuth();
 
   // Allows us to use these react-hook imports from react-hook
   const {
@@ -24,11 +26,12 @@ const Login = () => {
   // We want this function to fire when when fill out the form
   // Our two inputs from the useForm above are email and password --> We have them listed below in register
   const onSubmit: SubmitHandler<Inputs> = async ({ email, password }) => {
-    // If the user clicked on the signin butter
+    // If the user clicked on the signin button
     if (login) {
-      // await signIn(email, password);
+      await signIn(email, password);
     } else {
-      // await signInWithPopup(email, password)
+      // Signs us up if we are not signed in
+      await signUp(email, password);
     }
   };
 
