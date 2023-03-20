@@ -8,6 +8,7 @@ import Row from "@/components/Row";
 import useAuth from "@/hooks/useAuth";
 import { useRecoilValue } from "recoil";
 import { modalState } from "@/atoms/modalAtom";
+import Modal from "@/components/Modal";
 
 // Allows us to use these in other components and pages
 interface Props {
@@ -97,8 +98,7 @@ export default function Home({
           <Row title="Horror" movies={horrorMovies} />
         </section>
       </main>
-      {}
-      {/* Modal */}
+      {showModal && <Modal />}
     </div>
   );
 }

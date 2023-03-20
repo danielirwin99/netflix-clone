@@ -18,7 +18,6 @@ const Banner = ({ netflixOriginals }: Props) => {
   const [currentMovie, setCurrentMovie] = useRecoilState(movieState);
   const [showModal, setShowModal] = useRecoilState(modalState);
 
-  console.log(movieState);
 
   useEffect(() => {
     setMovie(
