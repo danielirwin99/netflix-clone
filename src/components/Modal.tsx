@@ -12,15 +12,22 @@ import ReactPlayer from "react-player/lazy";
 import { FaPlay, FaVolumeMute, FaVolumeUp } from "react-icons/fa";
 
 const Modal = () => {
+  // Showing the modal
   const [showmodal, setShowModal] = useRecoilState(modalState);
+  // Allows the trailer to be shown
   const [movie, setMovie] = useRecoilState(movieState);
+  // Picks the trailer from the params below on React Player
   const [trailer, setTrailer] = useState("");
+  // Displays the genre below the trailer dynamically
   const [genres, setGenres] = useState<Genre[]>([]);
+  // Toggling off and on (Have true set first for it to be muted on click)
   const [muted, setMuted] = useState(true);
 
   useEffect(() => {
+    // If there is no movie dont show
     if (!movie) return;
 
+    // Fetches the movie
     async function fetchMovie() {
       const data = await fetch(
         `https://api.themoviedb.org/3/${
@@ -30,20 +37,25 @@ const Modal = () => {
         }&language=en-US&append_to_response=videos`
       ).then((response) => response.json());
 
+      // Finds the trailer if there is one in the data.video.results
       if (data?.videos) {
         const index = data.videos.results.findIndex(
           (element: Element) => element.type === "Trailer"
         );
+        // Displays the trailer
         setTrailer(data.videos?.results[index]?.key);
       }
+      // If there is any genres to display --> display it
       if (data?.genres) {
         setGenres(data.genres);
       }
       console.log(data);
     }
     fetchMovie();
+    // Movie is the dependency
   }, [movie]);
 
+  // Closes the modal upon click
   const handleClose = () => {
     setShowModal(false);
   };

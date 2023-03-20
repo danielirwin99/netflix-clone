@@ -21,7 +21,7 @@ const Header = () => {
 
     // Listens to whatever event you pass through
     window.addEventListener("scroll", handleScroll);
-
+    // Removes the nav header when you scroll to the top
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };

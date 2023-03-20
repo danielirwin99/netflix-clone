@@ -11,6 +11,7 @@ interface Props {
 }
 
 const Thumbnail = ({ movie }: Props) => {
+  // Fires off the Modal component when you click the thumbnail
   const [currentMovie, setCurrentMovie] = useRecoilState(movieState);
   const [showModal, setShowModal] = useRecoilState(modalState);
 
