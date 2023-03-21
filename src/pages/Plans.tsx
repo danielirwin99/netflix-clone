@@ -1,5 +1,6 @@
 import useAuth from "@/hooks/useAuth";
 import { CheckIcon } from "@heroicons/react/24/outline";
+import { Table } from "@mui/material";
 import Head from "next/head";
 import Link from "next/link";
 import React from "react";
@@ -33,7 +34,7 @@ const Plans = () => {
           Sign Out
         </button>
       </header>
-      <main className="pt-28">
+      <main className="pt-28 maax-w-5xl px-5 pb-12 transition-all md:px-10">
         <h1 className="mb-3 text-3xl font-medium">
           Choose the plan that's right for you
         </h1>
@@ -51,12 +52,14 @@ const Plans = () => {
             your plan anytime
           </li>
         </ul>
-        <div>
-          <div>
-            <div className="planBox">
-                Standard
-            </div>
+        <div className="mt-4 flex flex-col space-y-4">
+          <div className="flex w-full max-w-2 justify-center self-end md:w-3/5">
+            <div className="planBox">Standard</div>
+            <div className="planBox">Standard</div>
+            <div className="planBox">Standard</div>
           </div>
+          <Table />
+          <button>Subscribe</button>
         </div>
       </main>
     </div>
