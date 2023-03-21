@@ -10,6 +10,8 @@ import { useRecoilValue } from "recoil";
 import { modalState } from "@/atoms/modalAtom";
 import Modal from "@/components/Modal";
 import Plans from "./Plans";
+import { getProducts, Product } from "@stripe/firestore-stripe-payments";
+import payments from "@/library/stripe";
 
 // Allows us to use these in other components and pages
 interface Props {
@@ -21,11 +23,18 @@ interface Props {
   horrorMovies: Movie[];
   romanceMovies: Movie[];
   documentaries: Movie[];
-  // products: Product[];
+  products: Product[];
 }
 
 // Our async function of Next.js
 export const getServerSideProps = async () => {
+  // This pulls the products
+  const products = await getProducts(payments, {
+    includePrices: true,
+    activeOnly: true,
+  })
+    .then((response) => response)
+    .catch((error) => console.log(error.message));
   const [
     netflixOriginals,
     trendingNow,
@@ -58,6 +67,7 @@ export const getServerSideProps = async () => {
       horrorMovies: horrorMovies.results,
       romanceMovies: romanceMovies.results,
       documentaries: documentaries.results,
+      products,
     },
   };
 };
@@ -71,7 +81,9 @@ export default function Home({
   romanceMovies,
   topRated,
   trendingNow,
+  products,
 }: Props) {
+  console.log(products)
   const { loading, logout } = useAuth();
   // useRecoil is very similar to useState
   const showModal = useRecoilValue(modalState);
@@ -81,7 +93,7 @@ export default function Home({
   if (loading || subscription === null) return null;
 
   // If there is no subscription --> Push the user onto the Plans screen
-  if (!subscription) return <Plans/>
+  if (!subscription) return <Plans />;
   return (
     <div className="relative h-screen bg-gradient-to-b lg:h-[140vh]">
       <Head>
