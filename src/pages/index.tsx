@@ -9,6 +9,7 @@ import useAuth from "@/hooks/useAuth";
 import { useRecoilValue } from "recoil";
 import { modalState } from "@/atoms/modalAtom";
 import Modal from "@/components/Modal";
+import Plans from "./Plans";
 
 // Allows us to use these in other components and pages
 interface Props {
@@ -74,12 +75,17 @@ export default function Home({
   const { loading, logout } = useAuth();
   // useRecoil is very similar to useState
   const showModal = useRecoilValue(modalState);
+  const subscription = false;
 
-  if (loading) return null;
+  // If Either of these return back nothing --> Return null
+  if (loading || subscription === null) return null;
+
+  // If there is no subscription --> Push the user onto the Plans screen
+  if (!subscription) return <Plans/>
   return (
     <div className="relative h-screen bg-gradient-to-b lg:h-[140vh]">
       <Head>
-        <title>Netflix</title>
+        <title>Home - Netflix</title>
         <meta name="description" content="Netflix Clone" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
