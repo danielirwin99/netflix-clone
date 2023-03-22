@@ -21,7 +21,7 @@ const Banner = ({ netflixOriginals }: Props) => {
   useEffect(() => {
     setMovie(
       // this is generating a random movie every time the browser loads
-      netflixOriginals[Math.floor(Math.random() * netflixOriginals.length)]
+      netflixOriginals[Math.floor(Math.random() * netflixOriginals.length + 1)]
     );
     // This is dependant on the netflixOriginals
   }, [netflixOriginals]);
