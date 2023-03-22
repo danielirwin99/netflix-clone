@@ -1,13 +1,13 @@
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
+import { DocumentData } from "firebase/firestore";
 import { useRef, useState } from "react";
 import { Movie } from "../../typings";
 import Thumbnail from "./Thumbnail";
 
 interface Props {
   title: string;
-  movies: Movie[];
   // Firebase
-  // movie: Movie | DocumentData[]
+  movies: Movie[] | DocumentData[];
 }
 
 const Row = ({ title, movies }: Props) => {
@@ -31,9 +31,9 @@ const Row = ({ title, movies }: Props) => {
           ? scrollLeft - clientWidth
           : scrollLeft + clientWidth;
 
-          // Passing in the function above
-          // Behaviour will make it either smooth or auto depending on your choice
-          rowRef.current.scrollTo({left: scrollTo, behavior:"smooth"})
+      // Passing in the function above
+      // Behaviour will make it either smooth or auto depending on your choice
+      rowRef.current.scrollTo({ left: scrollTo, behavior: "smooth" });
     }
   }
 
@@ -44,7 +44,9 @@ const Row = ({ title, movies }: Props) => {
       </h2>
       <div className="group relative ">
         <ChevronLeftIcon
-          className={`absolute top-0 bottom-0 left-2 z-40 m-auto h-9 w-9 cursor-pointer opacity-0 transition hover:scale-125 group-hover:opacity-100 ${!isMoved && "hidden"}`}
+          className={`absolute top-0 bottom-0 left-2 z-40 m-auto h-9 w-9 cursor-pointer opacity-0 transition hover:scale-125 group-hover:opacity-100 ${
+            !isMoved && "hidden"
+          }`}
           onClick={() => handleClick("left")}
         />
         <div
