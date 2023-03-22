@@ -8,7 +8,7 @@ import { modalState, movieState } from "@/atoms/modalAtom";
 import { useRecoilState } from "recoil";
 
 interface Props {
-  trendingNow: Movie[] 
+  trendingNow: Movie[];
 }
 
 const Banner = ({ trendingNow }: Props) => {
@@ -23,18 +23,15 @@ const Banner = ({ trendingNow }: Props) => {
       // this is generating a random movie every time the browser loads
       trendingNow[Math.floor(Math.random() * trendingNow?.length)]
     );
-    console.log(setMovie)
     // This is dependant on the trendingNow
-  }, [trendingNow]);
-  console.log(trendingNow.length)
+  }, []);
 
   return (
     <div className="flex flex-col space-y-2 py-16 md:space-y-4 lg:h-[65vh] lg:justify-end lg:pb-12">
       <div className="absolute top-0 left-0 h-[95vh] w-screen -z-10">
-        <Image
+        <img
           src={`${baseUrl}${movie?.backdrop_path || movie?.poster_path}`}
-          className="relative"
-          fill
+          className="relative cover"
           style={{ objectFit: "cover" }}
           alt="Banner Image"
         />
