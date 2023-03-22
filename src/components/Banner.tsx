@@ -8,24 +8,23 @@ import { modalState, movieState } from "@/atoms/modalAtom";
 import { useRecoilState } from "recoil";
 
 interface Props {
-  netflixOriginals: Movie[];
+  trendingNow: Movie[];
 }
 
-const Banner = ({ netflixOriginals }: Props) => {
+const Banner = ({ trendingNow }: Props) => {
   // Its original state is null --> No value to display
   const [movie, setMovie] = useState<Movie | null>(null);
   // State for the modal to show
   const [currentMovie, setCurrentMovie] = useRecoilState(movieState);
   const [showModal, setShowModal] = useRecoilState(modalState);
 
-  // useEffect(() => {
-  //   setMovie(
-  //     // this is generating a random movie every time the browser loads
-  //     netflixOriginals[Math.floor(netflixOriginals.length)]
-  //   );
-  //   console.log(setMovie)
-  //   // This is dependant on the netflixOriginals
-  // }, [netflixOriginals]);
+  useEffect(() => {
+    setMovie(
+      // this is generating a random movie every time the browser loads
+      trendingNow[Math.floor(Math.random() * trendingNow.length)]
+    );
+    // This is dependant on the netflixOriginals
+  }, [trendingNow]);
 
   return (
     <div className="flex flex-col space-y-2 py-16 md:space-y-4 lg:h-[65vh] lg:justify-end lg:pb-12">
