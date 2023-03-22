@@ -23,9 +23,8 @@ const Banner = ({ netflixOriginals }: Props) => {
       // this is generating a random movie every time the browser loads
       netflixOriginals[Math.floor(Math.random() * netflixOriginals.length)]
     );
-    console.log(netflixOriginals);
     // This is dependant on the netflixOriginals
-  }, [netflixOriginals]);
+  }, []);
 
   return (
     <div className="flex flex-col space-y-2 py-16 md:space-y-4 lg:h-[65vh] lg:justify-end lg:pb-12">
