@@ -18,20 +18,22 @@ const Banner = ({ trendingNow }: Props) => {
   const [currentMovie, setCurrentMovie] = useRecoilState(movieState);
   const [showModal, setShowModal] = useRecoilState(modalState);
 
+  
   useEffect(() => {
     setMovie(
       // this is generating a random movie every time the browser loads
       trendingNow[Math.floor(Math.random() * trendingNow?.length)]
-    );
-    // This is dependant on the trendingNow
-  }, []);
+      );
+      // This is dependant on the trendingNow
+    }, [trendingNow])
 
   return (
     <div className="flex flex-col space-y-2 py-16 md:space-y-4 lg:h-[65vh] lg:justify-end lg:pb-12">
       <div className="absolute top-0 left-0 h-[95vh] w-screen -z-10">
-        <img
+        <Image
           src={`${baseUrl}${movie?.backdrop_path || movie?.poster_path}`}
-          className="relative cover"
+          className="relative"
+          fill
           style={{ objectFit: "cover" }}
           alt="Banner Image"
         />
