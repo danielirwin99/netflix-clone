@@ -18,13 +18,14 @@ const Banner = ({ netflixOriginals }: Props) => {
   const [currentMovie, setCurrentMovie] = useRecoilState(movieState);
   const [showModal, setShowModal] = useRecoilState(modalState);
 
-  useEffect(() => {
-    setMovie(
-      // this is generating a random movie every time the browser loads
-      netflixOriginals[Math.floor(Math.random() * netflixOriginals.length + 1)]
-    );
-    // This is dependant on the netflixOriginals
-  }, [netflixOriginals]);
+  // useEffect(() => {
+  //   setMovie(
+  //     // this is generating a random movie every time the browser loads
+  //     netflixOriginals[Math.floor(netflixOriginals.length)]
+  //   );
+  //   console.log(setMovie)
+  //   // This is dependant on the netflixOriginals
+  // }, [netflixOriginals]);
 
   return (
     <div className="flex flex-col space-y-2 py-16 md:space-y-4 lg:h-[65vh] lg:justify-end lg:pb-12">
