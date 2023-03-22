@@ -54,7 +54,7 @@ const Row = ({ title, movies }: Props) => {
           className="flex scrollbar-hide items-center space-x-0.5 md:-ml-1  overflow-x-scroll md:space-x-2.5"
         >
           {movies.map((movie) => (
-            <Thumbnail key={movie.id} movie={movie} />
+            <Thumbnail key={movie?.id} movie={movie} />
           ))}
         </div>
         <ChevronRightIcon
