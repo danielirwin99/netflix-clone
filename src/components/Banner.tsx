@@ -21,8 +21,9 @@ const Banner = ({ trendingNow }: Props) => {
   useEffect(() => {
     setMovie(
       // this is generating a random movie every time the browser loads
-      trendingNow[Math.floor(Math.random() * trendingNow?.length || 0)]
+      trendingNow[Math.floor(Math.random() * trendingNow?.length)]
     );
+    console.log(setMovie)
     // This is dependant on the trendingNow
   }, [trendingNow]);
   console.log(trendingNow.length)
