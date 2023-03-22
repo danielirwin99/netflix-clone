@@ -1,0 +1,40 @@
+import useAuth from "@/hooks/useAuth";
+import useSubscription from "@/hooks/useSubscription";
+import { goToBillingPortal } from "@/library/stripe";
+import { useState } from "react";
+import Loader from "./Loader";
+
+const Membership = () => {
+  // Pulling the user from firebase
+  const { user } = useAuth();
+  const subscription = useSubscription(user);
+  const [isBillingLoading, setIsBillingLoading] = useState(false);
+
+  const manageSubscription = () => {
+    // If there is a subscription load the billing + push them to the portal
+    if (subscription) {
+      setIsBillingLoading(true);
+      goToBillingPortal();
+    }
+  };
+  return (
+    <div className="mt-6 grid grid-cols-1 gap-x-4 border px-4 md:grid-cols-4 md:border-x-0 md:border-t md:border-b-0 md:px-0 ">
+      <div className="space-y-2 py-4">
+        <h4 className="text-lg text-[gray]">Membership & Billing</h4>
+        <button
+          disabled={isBillingLoading || !subscription}
+          className="h-10 w-3/5 whitespace-nowrap bg-gray-300 py-2 text-sm font-medium text-black shadow-md hover:bg-gray-200 md:w-4/5"
+          onClick={manageSubscription}
+        >
+          {isBillingLoading ? (
+            <Loader color="dark:fill-[#e50914]" />
+          ) : (
+            "Cancel Membership"
+          )}
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export default Membership;
