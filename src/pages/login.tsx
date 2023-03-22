@@ -43,10 +43,9 @@ const Login = () => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Image
+      <img
         src="https://rb.gy/p2hphi"
-        className="-z-10 !hidden opacity-60 sm:!inline"
-        fill
+        className="-z-10 !hidden opacity-30 sm:!inline absolute w-full h-full"
         style={{ objectFit: "cover" }}
         alt="Login Image"
       />

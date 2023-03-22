@@ -12,6 +12,7 @@ import Modal from "@/components/Modal";
 import Plans from "./Plans";
 import { getProducts, Product } from "@stripe/firestore-stripe-payments";
 import payments from "@/library/stripe";
+import useSubscription from "@/hooks/useSubscription";
 
 // Allows us to use these in other components and pages
 interface Props {
@@ -33,7 +34,7 @@ export const getServerSideProps = async () => {
     includePrices: true,
     activeOnly: true,
   })
-    .then((response) => response)
+    .then((res) => res)
     .catch((error) => console.log(error.message));
   const [
     netflixOriginals,
@@ -83,17 +84,17 @@ export default function Home({
   trendingNow,
   products,
 }: Props) {
-  console.log(products)
-  const { loading, logout } = useAuth();
+  console.log(products);
+  const { loading, user } = useAuth();
   // useRecoil is very similar to useState
   const showModal = useRecoilValue(modalState);
-  const subscription = false;
+  const subscription = useSubscription(user);
 
   // If Either of these return back nothing --> Return null
   if (loading || subscription === null) return null;
 
   // If there is no subscription --> Push the user onto the Plans screen
-  if (!subscription) return <Plans />;
+  if (!subscription) return <Plans products={products} />;
   return (
     <div className="relative h-screen bg-gradient-to-b lg:h-[140vh]">
       <Head>

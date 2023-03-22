@@ -8,7 +8,7 @@ import app from "../utils/firebase";
 // Allows us to retrieve the payments from Stripe
 const payments = getStripePayments(app, {
   customersCollection: "customers",
-  productsCollection: "product",
+  productsCollection: "products",
 });
 
 // Retrieving the payments from the checkout function
