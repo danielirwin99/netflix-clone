@@ -13,7 +13,7 @@ interface Props {
 
 const Banner = ({ netflixOriginals }: Props) => {
   // Its original state is null --> No value to display
-  const [movie, setMovie] = useState<Movie | null>(null);
+  const [movie, setMovie] = useState<Movie | null>();
   // State for the modal to show
   const [currentMovie, setCurrentMovie] = useRecoilState(movieState);
   const [showModal, setShowModal] = useRecoilState(modalState);
