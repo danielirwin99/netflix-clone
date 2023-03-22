@@ -23,7 +23,7 @@ const Banner = ({ netflixOriginals }: Props) => {
       // this is generating a random movie every time the browser loads
       netflixOriginals[Math.floor(Math.random() * netflixOriginals.length)]
     );
-    if (netflixOriginals.length === 0) return;
+    console.log(netflixOriginals.length)
     // This is dependant on the netflixOriginals
   }, [netflixOriginals]);
 
