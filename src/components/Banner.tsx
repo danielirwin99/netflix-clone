@@ -18,12 +18,13 @@ const Banner = ({ netflixOriginals }: Props) => {
 
   useEffect(() => {
     setMovie(
-      netflixOriginals[4]
+      netflixOriginals[4] || null
     );
 
     console.log(netflixOriginals)
     // This is dependant on the netflixOriginals
   }, [netflixOriginals]);
+  console.log(useEffect)
 
   
   return (
