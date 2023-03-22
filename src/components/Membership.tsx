@@ -33,6 +33,34 @@ const Membership = () => {
           )}
         </button>
       </div>
+      <div className="col-span-3">
+        <div className="flex flex-col justify-between border-b border-white/10 py-4 md:flex-row">
+          <div className="md:text-right">
+            <p className="font-medium ">{user?.email}</p>
+            <p className="text-[gray]">Password: ********</p>
+          </div>
+          <div className="md:text-right">
+            <p className="membershipLink">Change email</p>
+            <p className="membershipLink">Change password</p>
+          </div>
+        </div>
+        <div className="flex flex-col justify-between py-4 md:flex-row md:pb-0">
+          <div>
+            <p>
+              {subscription?.cancel_at_period_end
+                ? "Your membership will end on "
+                : "Your next billing date is "}
+              {subscription?.current_period_end}
+            </p>
+          </div>
+          <div className="md:text-right">
+            <p className="membershipLink">Manage payment info</p>
+            <p className="membershipLink">Add backup payment method</p>
+            <p className="membershipLink">Billing Details</p>
+            <p className="membershipLink">Change billing day</p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

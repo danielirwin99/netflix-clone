@@ -53,11 +53,13 @@ const Account = ({ products }: Props) => {
             </p>
           </div>
         </div>
+
         <Membership />
+
         <div className="mt-6 grid grid-cols-1 gap-x-4 border px-4 py-4 md:grid-cols-4 md:border-x-0 md:border-t md:border-b-0 md:px-0 md:pb-0 ">
           <h4>Plan Details</h4>
           {/* Finding the current plan */}
-          <div className="col">
+          <div className="col-span-2 font-medium">
             {
               products.filter(
                 (product) => product.id === subscription?.product
