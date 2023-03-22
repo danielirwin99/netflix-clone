@@ -6,14 +6,13 @@ import { Movie } from "../../typings";
 import Row from "@/components/Row";
 import useAuth from "@/hooks/useAuth";
 import { useRecoilValue } from "recoil";
-import { modalState } from "@/atoms/modalAtom";
+import { modalState, movieState } from "@/atoms/modalAtom";
 import Modal from "@/components/Modal";
 import Plans from "./Plans";
 import { getProducts, Product } from "@stripe/firestore-stripe-payments";
 import payments from "@/library/stripe";
 import useSubscription from "@/hooks/useSubscription";
 
-// Allows us to use these in other components and pages
 interface Props {
   netflixOriginals: Movie[];
   trendingNow: Movie[];
@@ -26,15 +25,71 @@ interface Props {
   products: Product[];
 }
 
-// Our async function of Next.js
+const Home = ({
+  netflixOriginals,
+  actionMovies,
+  comedyMovies,
+  documentaries,
+  horrorMovies,
+  romanceMovies,
+  topRated,
+  trendingNow,
+  products,
+}: Props) => {
+  const { user, loading } = useAuth();
+  const subscription = useSubscription(user);
+  const showModal = useRecoilValue(modalState);
+  const movie = useRecoilValue(movieState);
+
+  if (loading || subscription === null) return null;
+
+  if (!subscription) return <Plans products={products} />;
+
+  return (
+    <div
+      className={`relative h-screen bg-gradient-to-b from-gray-900/10 to-[#010511] lg:h-[140vh] ${
+        showModal && "!h-screen overflow-hidden"
+      }`}
+    >
+      <Head>
+        <title>Home - Netflix</title>
+        <meta name="description" content="Netflix Clone" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+
+      <Header />
+
+      <main className="relative pl-4 pb-24 lg:space-y-24 lg:pl-16 ">
+        <Banner netflixOriginals={netflixOriginals} />
+
+        <section className="md:space-y-24">
+          <Row title="Trending Now" movies={trendingNow} />
+          <Row title="Top Rated" movies={topRated} />
+          <Row title="Action Thrillers" movies={actionMovies} />
+          {/* My List */}
+
+          <Row title="Comedies" movies={comedyMovies} />
+          <Row title="Scary Movies" movies={horrorMovies} />
+          <Row title="Romance Movies" movies={romanceMovies} />
+          <Row title="Documentaries" movies={documentaries} />
+        </section>
+      </main>
+      {showModal && <Modal />}
+    </div>
+  );
+};
+
+export default Home;
+
 export const getServerSideProps = async () => {
-  // This pulls the products
   const products = await getProducts(payments, {
     includePrices: true,
     activeOnly: true,
   })
     .then((res) => res)
     .catch((error) => console.log(error.message));
+
   const [
     netflixOriginals,
     trendingNow,
@@ -44,7 +99,6 @@ export const getServerSideProps = async () => {
     horrorMovies,
     romanceMovies,
     documentaries,
-    // Instead of using 8 awaits we can use Promise.all --> Its also faster
   ] = await Promise.all([
     fetch(requests.fetchNetflixOriginals).then((res) => res.json()),
     fetch(requests.fetchTrending).then((res) => res.json()),
@@ -56,7 +110,6 @@ export const getServerSideProps = async () => {
     fetch(requests.fetchDocumentaries).then((res) => res.json()),
   ]);
 
-  // must return something your async function
   return {
     props: {
       netflixOriginals: netflixOriginals.results,
@@ -71,52 +124,3 @@ export const getServerSideProps = async () => {
     },
   };
 };
-
-export default function Home({
-  netflixOriginals,
-  actionMovies,
-  comedyMovies,
-  documentaries,
-  horrorMovies,
-  romanceMovies,
-  topRated,
-  trendingNow,
-  products,
-}: Props) {
-  console.log(products);
-  const { loading, user } = useAuth();
-  // useRecoil is very similar to useState
-  const showModal = useRecoilValue(modalState);
-  const subscription = useSubscription(user);
-
-  // If Either of these return back nothing --> Return null
-  if (loading || subscription === null) return null;
-
-  // If there is no subscription --> Push the user onto the Plans screen
-  if (!subscription) return <Plans products={products} />;
-  return (
-    <div className="relative h-screen bg-gradient-to-b lg:h-[140vh]">
-      <Head>
-        <title>Home - Netflix</title>
-        <meta name="description" content="Netflix Clone" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <Header />
-      <main className="relative pl-4 pb-24 lg:space-y-24 lg:pl-10">
-        <Banner netflixOriginals={netflixOriginals} />
-        <section className="md:space-y-16">
-          {/* Passing Values for each row to display */}
-          <Row title="Trending Now" movies={trendingNow} />
-          <Row title="Top Rated" movies={topRated} />
-          <Row title="Action Thrillers" movies={actionMovies} />
-          <Row title="Comedies" movies={comedyMovies} />
-          <Row title="Documentaries" movies={documentaries} />
-          <Row title="Romance" movies={romanceMovies} />
-          <Row title="Horror" movies={horrorMovies} />
-        </section>
-      </main>
-      {showModal && <Modal />}
-    </div>
-  );
-}
